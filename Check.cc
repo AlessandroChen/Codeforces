@@ -22,7 +22,7 @@ int main() {
         } else {
             // ./a1 < a1.in > mu_ans.out
             system(("./" + Program_name + " < " + input + " > my_ans.out").data());
-            if (system(("diff my_ans.out " + output).data())) {
+            if (system(("diff -Z -B my_ans.out " + output).data())) {
                 printf("WA %d \n", i);
                 // break;
             } else printf("AC %d \n", i);
