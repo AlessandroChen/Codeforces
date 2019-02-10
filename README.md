@@ -1,75 +1,78 @@
-# idne
-A way to submit your solution file to Codeforces through terminal
+# Codeforces
+利用 `python3` 编写的 Codeforces 助手
+
+现有功能：
+
+* 自动下载样例
+* 一键测试样例
+* 一键提交源码
 
 ![preview GIF](https://github.com/endiliey/idne/blob/master/preview.gif?raw=true)
 
-## Installation
+## 安装
 
-Clone the repositories
-```
-git clone https://github.com/endiliey/idne.git
+克隆仓库到本地
+```bash
+git clone https://github.com/AlessandroChen/Codeforces.git
 ```
 
-Install all required dependencies in an isolated environment
+创建虚拟环境和安装依赖 (直接运行安装脚本)
 
 ```bash
-cd idne
-python3 -m venv env
-source env/bin/activate
-pip install --editable .
+cd Codeforces
+sudo bash install.sh
 ```
 
-Go to `utils/config.py`, then insert your username and password
+在 `utils/config.py` 设置用户名和密码
 ```python
 username = "ababcba" # your codeforces username
 password = "asdadas" # your password
 ```
 
-Make sure to edit `template.cpp` as you wish
-```
-vim template.cpp
-```
 
 
-## Usage
+
+## 使用
 ----------
 
+进入虚拟环境
 
-
-Example: Solving [Codeforces Round #259 (Div. 2)](http://codeforces.com/contest/454)
-
-First, ensure that you have activated the virtualenv
-Activate virtualenv
-```
-source env/bin/activate
+```bash
+$ source env/bin/activate
 ```
 
-Secondly, parse the problem
+下载样例 (例如下载 contest 1000)
 
-```
-parse 454
-```
-
-And there will be a folder named 454-c++11, with a subfolder (e.g: A, B, C, D) inside. Assume you are solving problem A
-```
-cd 454-c++11/A
+```bash
+$ parse
+Please Enter Contest ID:
+>> 1000
 ```
 
-Use your favourite text editor and edit A.cpp. I use vim for this example
-```
-vim A.cpp
+那将会看到当前目录下出现 文件夹 `1000`， 题目在其子文件夹
+
+以 `A` 题为例
+
+```bash
+$ cd 1000/A
 ```
 
-After confident with your solution, you can use ./test.sh to check if your solution passes the sample test
-```
-./test.sh
+在这个文件夹下创建 `A.cpp` , 并在这里写代码
+```bash
+$ vim A.cpp
 ```
 
-If it passes, you can submit with idne. The format is: idne [problem id] [filename]
+完成后可以用 ` ./test.sh` 检查是否通过样例
+```bash
+$ ./test.sh
 ```
-idne 454A A.cpp
+
+如果想上传可以通过 `./submit.sh` 上传
+```bash
+$ idne 454A A.cpp
 ```
 
 ## Credits
 
 - [Codeforces Parser](https://github.com/johnathan79717/codeforces-parser)
+- [Idne](https://github.com/endiliey/idne)
