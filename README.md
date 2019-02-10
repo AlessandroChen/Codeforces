@@ -69,7 +69,7 @@ $ ./test.sh
 
 如果想上传可以通过 `./submit.sh` 上传
 ```bash
-$ idne 454A A.cpp
+$ ./submit.sh
 ```
 
 ## Credits

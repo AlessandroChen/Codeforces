@@ -19,7 +19,7 @@ Header = "https://codeforc.es/"
 #Header = "https://codeforces.com/"
 
 RED_F='\033[31m'
-GREEN_F='\033[32m'
+GREEN_F='\036[32m'
 BOLD='\033[1m'
 NORM='\033[0m'
 TIME_CMD='`which time` -o time.out -f "(%es)"'
@@ -132,25 +132,21 @@ class CodeforcesContestParse:
         Dir = './' + contest + '/' + problem + '/';
         os.mkdir(Dir[:-1]);
         bsOBJ = BeautifulSoup(html, features="html.parser");
-        i = 0;
-        for name in bsOBJ.find_all("div", {"class":"input"}):
-            input_file = open(Dir + "input" + numList[i], 'w')
-            t_text = name.get_text()
-            text = t_text[5:].strip();
-            input_file.write(text)
-            i = i + 1
+        i = -1; tmp = 0;
+
+        for name in bsOBJ.find_all("pre"):
+            content = str(name).replace("<br/>", "\n").replace("<pre>","").replace("</pre>","");
+            if (tmp % 2) == 0:
+                i += 1;
+                input_file = open(Dir + "input" + numList[i], 'w');
+            else:
+                input_file = open(Dir + "output" + numList[i], 'w');
+            input_file.write(content)
+            tmp += 1;
 
         generate_test_script(Dir, i, problem, contest);
-        print ("%d sample test(s) found" % i);
+        print ("%d sample test(s) found" % (i + 1));
         print ("="*40)
-
-        i = 0;
-        for name in bsOBJ.find_all("div", {"class":"output"}):
-            input_file = open(Dir + "output" + numList[i], 'w')
-            t_text = name.get_text()
-            text = t_text[6:].strip();
-            input_file.write(text)
-            i = i + 1
 
     def Process(self, contest):
         for i in range(0, len(self.contest_links)):
