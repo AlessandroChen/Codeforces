@@ -56,9 +56,8 @@ def cli(prob_id, filename):
     
     click.secho('[{0}] login successful! '.format(config.username), fg = 'green')
     click.secho('Submitting [{1}] for problem [{0}]'.format(prob_id, filename), fg = 'green')
-    browser.open('http://codeforces.com/problemset/submit')
-    submit_form = browser.get_form(class_ = 'submit-form')
-    submit_form['submittedProblemCode'] = prob_id
+    browser.open('https://codeforces.com/contest/'+prob_id[:-1]+'/problem/'+prob_id[-1])
+    submit_form = browser.get_form(class_ = 'submitForm')
     try:
         submit_form['sourceFile'] = filename
     except Exception as e:
@@ -66,7 +65,7 @@ def cli(prob_id, filename):
         return
     browser.submit_form(submit_form)
 
-    if browser.url[-6:] != 'status':
+    if browser.url[-3:] != '/my':
         click.secho('Failed submission, probably you have submit the same file before', fg = 'red')
         return
 
