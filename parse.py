@@ -9,14 +9,16 @@ from subprocess import call
 import re
 import os
 
+
+#Header = "https://codeforc.es/"
+Header = "https://codeforces.com/"
+
 # Generates the test script.
 
 SAMPLE_INPUT='input'
 SAMPLE_OUTPUT='output'
 MY_OUTPUT='my_output'
 
-Header = "https://codeforc.es/"
-#Header = "https://codeforces.com/"
 
 RED_F='\033[31m'
 GREEN_F='\036[32m'
@@ -127,20 +129,19 @@ class CodeforcesContestParse:
         return self.contest_links;
 
     def ParseProblemPage(self, Link, contest, problem):
-        numList = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
         html = urlopen(Link);
         Dir = './' + contest + '/' + problem + '/';
         os.mkdir(Dir[:-1]);
         bsOBJ = BeautifulSoup(html, features="html.parser");
-        i = -1; tmp = 0;
+        i = 0; tmp = 0;
 
         for name in bsOBJ.find_all("pre"):
             content = str(name).replace("<br/>", "\n").replace("<pre>","").replace("</pre>","");
             if (tmp % 2) == 0:
                 i += 1;
-                input_file = open(Dir + "input" + numList[i], 'w');
+                input_file = open(Dir + "input" + str(i), 'w');
             else:
-                input_file = open(Dir + "output" + numList[i], 'w');
+                input_file = open(Dir + "output" + str(i), 'w');
             input_file.write(content)
             tmp += 1;
 
