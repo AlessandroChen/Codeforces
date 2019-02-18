@@ -69,7 +69,7 @@ def generate_test_script(folder, num_tests, problem, contest):
             '        echo Sample Input \#$test_case\n'
             '        cat $INPUT_NAME$test_case\n'
             '    else\n'
-            '        if diff --brief --ignore-space-change $MY_NAME$test_case $OUTPUT_NAME$test_case; then    \n'
+            '        if diff -B --brief --ignore-space-change $MY_NAME$test_case $OUTPUT_NAME$test_case; then    \n'
             '            echo {1}{3}Sample test \#$test_case: Accepted{2} {6}\n'
             '        else\n'
             '            echo {1}{4}Sample test \#$test_case: Wrong Answer{2} {6}\n'
@@ -142,7 +142,7 @@ class CodeforcesContestParse:
                 input_file = open(Dir + "input" + str(i), 'w');
             else:
                 input_file = open(Dir + "output" + str(i), 'w');
-            input_file.write(content)
+            input_file.write(content.strip())
             tmp += 1;
 
         generate_test_script(Dir, i, problem, contest);
