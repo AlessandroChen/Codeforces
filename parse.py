@@ -21,7 +21,7 @@ MY_OUTPUT='my_output'
 
 
 RED_F='\033[31m'
-GREEN_F='\036[32m'
+GREEN_F='\033[36m'
 BOLD='\033[1m'
 NORM='\033[0m'
 TIME_CMD='`which time` -o time.out -f "(%es)"'
@@ -137,6 +137,7 @@ class CodeforcesContestParse:
 
         for name in bsOBJ.find_all("pre"):
             content = str(name).replace("<br/>", "\n").replace("<pre>","").replace("</pre>","");
+            content = content.replace("&gt;", ">").replace("&lt;", "<");
             if (tmp % 2) == 0:
                 i += 1;
                 input_file = open(Dir + "input" + str(i), 'w');
